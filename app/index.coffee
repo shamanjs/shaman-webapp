@@ -1,6 +1,5 @@
 path    = require 'path'
 connect = require "connect"
-Vein    = require "vein"
 log     = require 'node-log'
 views   = require '../build/views'
 shaman  = require 'shaman'
