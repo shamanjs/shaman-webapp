@@ -4,6 +4,9 @@ log     = require 'node-log'
 views   = require '../build/views'
 shaman  = require 'shaman'
 module.exports = (agent) -> 
+
+  # create views
+  agent = views agent
   agent.web      ?= {}
   agent.web.port ?= 8080
 
@@ -18,10 +21,10 @@ module.exports = (agent) ->
   Connect = connect()
   Connect.use connect.favicon()
   Connect.use connect.static("#{dest}/webapp/public/")
-  agent.web.server = Connect.listen agent.web.port
+  try
+    agent.web.server = Connect.listen agent.web.port
+  catch e
+    log.error e
   agent.log "WebServer started on #{agent.web.port}"
-
-  # views
-  agent = views agent
 
   return agent

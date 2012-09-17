@@ -1,6 +1,4 @@
-define ["app/server"], (server, notify) ->
+define ->
   (_, index) ->
-    server.ready (services) ->
-
-      # display main content
-      $('#main').html index()      
+    # display main content
+    $('#main').html index()  
