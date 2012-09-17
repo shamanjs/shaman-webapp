@@ -1,0 +1,40 @@
+{
+  "name": "shaman-webapp",
+  "description": "webserver & client",
+  "version": "0.0.1",
+  "homepage": "http://github.com/wearefractal/shaman-webapp",
+  "repository": "git://github.com/wearefractal/shaman-webapp.git",
+  "author": "Fractal <contact@wearefractal.com> (http://wearefractal.com/)",
+  "main": "./app/index.coffee",
+  "dependencies": {
+    "coffee-script": "*",
+    "connect": "*",
+    "async": "*",
+    "node-log": "0.0.3"
+  },
+  "devDependencies": {
+    "mocha": "*",
+    "should": "*",
+    "uglify-js": "*",
+    "jaded": "*",
+    "less": "*",
+    "grunt": "~0.3.11",
+    "grunt-reload": "*",
+    "grunt-coffee": "*",
+    "grunt-exec": "*",
+    "grunt-contrib": "~0.1.6"
+  },
+  "scripts": {
+    "test": "mocha --compilers coffee:coffee-script",
+    "start": "server.js"
+  },
+  "engines": {
+    "node": ">= 0.4.0"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://github.com/wearefractal/shaman-webapp/raw/master/LICENSE"
+    }
+  ]
+}
