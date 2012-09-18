@@ -15,23 +15,23 @@ crudSchema =
 ##
 
 module.exports = (agent, view, props, model) ->
+  modelName = props.crud
   input = ""
-  list  = ""
-  t  = "center: h1 #{agent.name}\n"
-  t += "#input\n"
-  t += "#list"
-
-  agent.write "views/#{view}/#{view}.jade", t
+  list  = ""  
+  main  = "center: h1 #{agent.name}\n"
+  main += "#input\n"
+  main += "#list"
+  agent.write "views/#{view}/#{view}.jade", main
 
   c  = "define ->\n\t(_, index) ->\n\t\t$('#main').html index()\n\t\t"
-  c += "#foo"
+  #c += "$('#foo"
 
   agent.write "views/#{view}/#{view}.coffee", c
 
   #agent.write app/path data
-  #for field, props of model
-  #  input += crudSchema[getMongooseType(props)].input(field) + "\n"
-    #list  += crudSchema[getMongooseType(props)].display()
+  for field, props of model
+    input += crudSchema[getMongooseType(props)].input(modelName) + "\n"
+    list  += crudSchema[getMongooseType(props)].display(modelName)
 
   return agent
   #breakr input
