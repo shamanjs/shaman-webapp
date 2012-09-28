@@ -1,16 +1,17 @@
 path    = require 'path'
 connect = require "connect"
 log     = require 'node-log'
-views   = require '../build/views'
+views   = require './views'
 shaman  = require 'shaman'
 module.exports = (agent) -> 
 
   # create views
   agent = views agent
+
   agent.web      ?= {}
   agent.web.port ?= 8080
 
-  src  = path.resolve __dirname, "../build/templates/"
+  src  = path.resolve __dirname, "templates/"
   dest = "#{agent.paths.root}/build/"
   mkdir '-p', dest
   shaman.clone src, dest, agent, (err) ->
@@ -25,6 +26,7 @@ module.exports = (agent) ->
     agent.web.server = Connect.listen agent.web.port
   catch e
     log.error e
+  
   agent.log "WebServer started on #{agent.web.port}"
 
   return agent
