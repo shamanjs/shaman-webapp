@@ -3,6 +3,7 @@ getMongooseType = (type) ->
   type.toString().match( /function (.+)\(\) {/ )[1].toLowerCase()
 
 ##
+
 path   = require 'path'
 shaman = require 'shaman'
 
@@ -10,10 +11,8 @@ module.exports = (agent, view, props, model) ->
   tmplPath  = path.resolve __dirname, 'templates'
   viewPath  = "views/#{view}"
   modelName = props.crud
-
-  ## input
   
-  input = "form(id='{modelName}Input')\n"
+  input = "form(id='#{modelName}Input')\n"
   for field, props of model  
     input += "  "
     input +=
@@ -22,19 +21,15 @@ module.exports = (agent, view, props, model) ->
       , {id: "Todo_#{field}", field: field})
     input += "\n"
   agent.write "#{viewPath}/#{modelName}Input.jade", input
-  # controller
-  shaman.clone "#{viewPath}/#{view}.coffee", cat("#{tmplPath}/inputController.coffee")
 
-  ## main template
+  ## ui.jade
+  shaman.clone (cat "#{tmplPath}/ui.jade")
+  , "#{viewPath}/#{view}.jade"
+  , {agent: agent, modelName: modelName}
 
-  tmpl  = shaman.interpolate (cat "#{tmplPath}/ui.jade"), agent
-  tmpl += "\n"
-  tmpl += "  include #{modelName}Input\n"
-  #tmpl += "include '#{modelName}List'\n"
-  agent.write "#{viewPath}/#{view}.jade", tmpl
-  # controller
-  shaman.clone "#{viewPath}/#{view}.coffee", cat("#{tmplPath}/controller.coffee")
+  ## controller.coffee
+  shaman.clone (cat "#{tmplPath}/controller.coffee")
+  , "#{viewPath}/#{view}.coffee"
+  , {modelName: modelName}
 
-
-  agent 
-
+  return agent 

@@ -1,5 +1,7 @@
-define ["routes/Todo"], (Todo) ->
+define ->
   (args, ui) ->
     ui '#main'
-    console.log "todo"
-    Todo()
+    $("##{modelName}Input").submit (e) ->
+      console.log e
+      e.preventDefault()
+      return false

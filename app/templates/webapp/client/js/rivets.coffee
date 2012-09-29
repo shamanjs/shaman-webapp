@@ -1,15 +1,13 @@
-define ["app/lock"], (lock)->
+define ->
   rivets.configure 
     adapter:
       subscribe: (o, kp, cb) ->
-        lock.on 'sync', (r) -> cb r[kp.replace(/,/g,'.')]
+        console.log o, kp, cb
       unsubscribe: (o, kp, cb) -> cb()
-      read: (o, kp) -> o[kp.replace(/,/g,'.')]
+      read: (o, kp) -> 
+        console.log o, kp
       publish: (o, kp, val) ->
-        lock.atomic(->
-          @set kp.replace(/,/g,'.'), val
-          @done()
-        ).run()
+        console.log o, kp, val
 
   rivets.configure 
     formatters:
