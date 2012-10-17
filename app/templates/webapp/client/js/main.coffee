@@ -1,2 +1,1 @@
-define ["app/routes"], 
-	(routes) ->
+define ["app/routes"], (routes) ->

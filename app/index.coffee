@@ -3,10 +3,12 @@ connect = require "connect"
 log     = require 'node-log'
 views   = require './views'
 shaman  = require 'shaman'
+shaman.overwrite = true
 module.exports = (agent) -> 
 
   # create views
-  agent = views agent
+  if shaman.overwrite
+    agent = views agent
 
   agent.web      ?= {}
   agent.web.port ?= 8080
@@ -14,9 +16,10 @@ module.exports = (agent) ->
   src  = path.resolve __dirname, "templates/"
   dest = "#{agent.paths.root}/build/"
   mkdir '-p', dest
-  shaman.clone src, dest, agent, (err) ->
-    return log.error err if err? 
-    log.info "#{dest} cloned to"
+  if shaman.overwrite
+    shaman.clone src, dest, agent, (err) ->
+      return log.error err if err? 
+      log.info "#{dest} cloned to"
   
   # HTTP Server
   Connect = connect()

@@ -1,3 +1,10 @@
-center
+header
   h1 #{agent.name}
-  include #{modelName}Input
+
+section#main
+  form(data-on-submit=":add", onsubmit="return false")
+    input#title(type="text", placeholder="")
+
+  ul#TodoList
+    li(data-each-todo=":all < .items .completed")
+      span(data-text="todo:title")

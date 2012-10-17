@@ -1,3 +1,2 @@
-define ["dermis"], (dermis) ->
+define ->
   dermis.route '/'
-  dermis.init()
